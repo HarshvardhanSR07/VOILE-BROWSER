@@ -1,0 +1,67 @@
+# Logs and diagnostics
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node / Dependency directories
+node_modules/
+jspm_packages/
+
+# Production Build & Bundler outputs
+dist/
+dist-ssr/
+release/
+release-builds/
+build/
+out/
+*.local
+
+# Executables & Native binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.msi
+*.zip
+*.tar.gz
+
+# Environment variables, credentials, and secrets
+.env
+.env.production
+.env.staging
+.env.test
+.env.local
+.env.*.local
+*.env
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+*.crt
+
+# Voile Local AdBlock & Session caches
+voile_adblock_cache.bin
+voile_adblock_settings.json
+voile_adblock_exceptions.json
+
+# Generated user artifacts & spreadsheets
+*.xlsx
+*.csv
+ai_startups_market_comparison_*.xlsx
+ai_startups_market_comparison_*.csv
+voile_gtm_launch_pack*.json
+
+# OS and Editor metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project

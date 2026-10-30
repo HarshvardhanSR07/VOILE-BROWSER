@@ -1,0 +1,31 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="voileLeafGradSrc" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="50%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+    <linearGradient id="voileVeinGradSrc" x1="12" y1="36" x2="36" y2="12" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+  <path d="M10 38C10 38 10 22 24 10C34 1.5 40 4 41 5C42 6 44.5 12 36 22C24 36 10 38 10 38Z" 
+        fill="url(#voileLeafGradSrc)" />
+  <path d="M10 38C18 34 26 26 34 14" 
+        stroke="url(#voileVeinGradSrc)" 
+        stroke-width="2.5" 
+        stroke-linecap="round"/>
+  <path d="M19 30C23 28 27 25 30 20" 
+        stroke="rgba(255,255,255,0.4)" 
+        stroke-width="1.5" 
+        stroke-linecap="round"/>
+  <path d="M15 34C17 31 20 28 23 26" 
+        stroke="rgba(255,255,255,0.3)" 
+        stroke-width="1.5" 
+        stroke-linecap="round"/>
+  <path d="M25 24C28 22 32 18 35 13" 
+        stroke="rgba(255,255,255,0.4)" 
+        stroke-width="1.5" 
+        stroke-linecap="round"/>
+</svg>

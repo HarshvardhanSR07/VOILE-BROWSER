@@ -1,0 +1,16 @@
+# Voile Browser - Native Firefox / Gecko Engine Configuration
+# Target: Windows 11 x64
+
+# Enable desktop browser application
+ac_add_options --enable-application=browser
+
+# Optimization & Debugging
+ac_add_options --enable-optimize
+ac_add_options --enable-debug
+
+# Dedicated Voile object build output directory
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-voile-x64
+
+# Package custom Voile brand branding
+ac_add_options --enable-official-branding
+ac_add_options --with-branding=browser/branding/voile
