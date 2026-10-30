@@ -325,14 +325,29 @@ export const LiveWebview: React.FC = () => {
                   allowpopups
                 />
               ) : (
-                /* STATE 3: Browser Preview Mode -> Fallback Proxy Iframe */
-                <iframe
-                  src={tab.url.startsWith('http') ? `/api/proxy?url=${encodeURIComponent(tab.url)}` : tab.url}
-                  className="w-full h-full border-none bg-white"
-                  style={{ width: '100%', height: '100%', display: 'block' }}
-                  title={tab.title}
-                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
-                />
+                /* STATE 3: Browser Preview Mode (Vercel / Web) */
+                <div className="w-full h-full flex flex-col bg-[#070B14] text-slate-300">
+                  <div className="px-4 py-2.5 bg-sky-950/40 border-b border-sky-500/20 text-xs text-sky-200 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-sky-400" />
+                      <span><strong>Web Cloud Preview:</strong> Voile is designed as an <strong>Electron Desktop Browser</strong>. Modern websites enforce <code>X-Frame-Options</code> preventing in-browser iframe embedding.</span>
+                    </div>
+                    <button
+                      onClick={() => window.open(tab.url, '_blank')}
+                      className="px-3 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded-lg flex items-center gap-1.5 font-medium transition-all text-xs"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Open in Browser Tab</span>
+                    </button>
+                  </div>
+                  <iframe
+                    src={tab.url}
+                    className="w-full flex-1 border-none bg-white"
+                    style={{ width: '100%', height: '100%', display: 'block' }}
+                    title={tab.title}
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+                  />
+                </div>
               )}
 
               {/* Non-blocking Load Error Banner for this specific tab */}
