@@ -389,12 +389,12 @@ function createWindow() {
   const cosmeticsCode = loadScript('public/adblock_cosmetics.js');
   const searchBrandingCode = loadScript('public/voile_search_branding.js');
 
-  // 1. Ensure webview preloads run in the main world so DOM/window interception runs synchronously at document_start
+  // 1. Enforce strict contextIsolation and sandbox on guest webviews to prevent prototype pollution and guest escapes
   mainWindow.webContents.on('will-attach-webview', (event, webPreferences, params) => {
-    webPreferences.contextIsolation = false;
+    webPreferences.contextIsolation = true;
     webPreferences.nodeIntegration = false;
-    webPreferences.sandbox = false;
-    log('Webview will-attach: Configured main-world document_start execution.');
+    webPreferences.sandbox = true;
+    log('Webview will-attach: Enforced contextIsolation and sandbox security.');
   });
 
   // 2. Inject Chameleon Shield, Universal Cosmetic AdBlock, and DevTools Context Menu into webviews
@@ -436,9 +436,9 @@ function createWindow() {
             title: 'Sign In',
             webPreferences: {
               session: webContents.session,
-              contextIsolation: false,
+              contextIsolation: true,
               nodeIntegration: false,
-              sandbox: false
+              sandbox: true
             }
           }
         };

@@ -15,6 +15,25 @@ class CredentialStore {
   }
 
   /**
+   * Retrieves or creates a cryptographically strong 256-bit local device key with restricted file permissions.
+   * Eliminates predictable fallback keys derived from public environment variables.
+   */
+  getFallbackKey() {
+    const keyPath = path.join(this.userDataPath, '.voile_device_key');
+    try {
+      if (fs.existsSync(keyPath)) {
+        return fs.readFileSync(keyPath);
+      }
+      const newKey = crypto.randomBytes(32);
+      fs.writeFileSync(keyPath, newKey, { mode: 0o600 });
+      return newKey;
+    } catch (e) {
+      this.log(`[CredentialStore] Fallback key generation failed: ${e.message}`);
+      return null;
+    }
+  }
+
+  /**
    * Encrypts plaintext string using OS DPAPI (safeStorage) or AES-256-GCM hardware-derived fallback.
    */
   encrypt(plaintext) {
@@ -31,7 +50,10 @@ class CredentialStore {
     }
 
     try {
-      const key = crypto.scryptSync(process.env.COMPUTERNAME || 'voile-device-id', 'voile-identity-salt-88', 32);
+      const key = this.getFallbackKey();
+      if (!key) {
+        throw new Error('Secure fallback device key unavailable.');
+      }
       const iv = crypto.randomBytes(12);
       const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
       let enc = cipher.update(plaintext, 'utf8', 'base64');
@@ -60,7 +82,8 @@ class CredentialStore {
         const buffer = Buffer.from(payload.data, 'base64');
         return safeStorage.decryptString(buffer);
       } else if (payload.method === 'aes-256-gcm') {
-        const key = crypto.scryptSync(process.env.COMPUTERNAME || 'voile-device-id', 'voile-identity-salt-88', 32);
+        const key = this.getFallbackKey();
+        if (!key) return null;
         const iv = Buffer.from(payload.iv, 'base64');
         const tag = Buffer.from(payload.tag, 'base64');
         const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
